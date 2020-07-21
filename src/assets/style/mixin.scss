@@ -1,4 +1,6 @@
-.boxCenter{
-    display: flex;
-    justify-content: center;
+@mixin pageBackground($bc){
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    background-color: $bc;
 }

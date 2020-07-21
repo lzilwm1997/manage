@@ -27,10 +27,15 @@
               ></el-input>
             </el-form-item>
             <el-form-item class="btn">
-              <el-button type="success" @click="loginBtn(loginInfo)"
+              <el-button type="success" @click="loginBtn('loginInfo')"
                 >登录</el-button
               >
-              <el-button type="warning" class="rsetBtn">重置</el-button>
+              <el-button
+                type="warning"
+                class="rsetBtn"
+                @click="resetForm('loginInfo')"
+                >重置</el-button
+              >
             </el-form-item>
           </el-form>
         </div>
@@ -39,6 +44,7 @@
   </div>
 </template>
 <script>
+// import { mapState, mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -59,14 +65,29 @@ export default {
     }
   },
   methods: {
+    // 登录验证
     loginBtn(val) {
       this.$refs.loginInfo.validate(valid => {
+        console.log(valid)
         if (valid) {
-          console.log(this.loginInfo)
+          this.$store
+            .dispatch('userLogin/getUserInfo', this.loginInfo)
+            .then(res => {
+              if (res.code === 0) {
+                this.$message({ type: 'success', message: res.message })
+                this.$router.push('/home')
+              } else {
+                this.$message({ type: 'error', message: res.message })
+              }
+            })
         } else {
-          console.log('err')
+          this.$message({ type: 'error', message: '请输入正确的用户名及密码' })
         }
       })
+    },
+    // 重置表单
+    resetForm(val) {
+      this.$refs[val].resetFields()
     }
   }
 }
@@ -88,13 +109,14 @@ export default {
     @include center;
   }
   .el-card {
-    width: 500px;
+    width: 400px;
     margin: 100px auto;
     .el-button {
       width: 45%;
     }
     .rsetBtn {
-      margin-left: 46px;
+      position: absolute;
+      right: 0;
     }
   }
 }
