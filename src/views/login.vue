@@ -71,7 +71,7 @@ export default {
         console.log(valid)
         if (valid) {
           this.$store
-            .dispatch('userLogin/getUserInfo', this.loginInfo)
+            .dispatch('userLogin/loginIn', this.loginInfo)
             .then(res => {
               if (res.code === 0) {
                 this.$message({ type: 'success', message: res.message })

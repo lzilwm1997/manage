@@ -14,5 +14,6 @@ module.exports = {
     semi: 0,
     "space-before-function-paren": 0,
     "indent": ["off", 4],
+    "eqeqeq": ["off"]
   }
 }

@@ -18,19 +18,20 @@ const mutations = {
 }
 
 const actions = {
-  async getUserInfo({ commit }, loginInfo) {
+  async loginIn({ commit }, loginInfo) {
     const { data: res } = await $axios.post('/login', loginInfo)
     if (res.code === 0) {
       window.sessionStorage.setItem('token', res.token)
       commit('SET_TOKEN', res.token)
-      commit('SET_USER', res.data)
-      commit('SET_MESSAGE', res.message)
     } else {
       commit('SET_MESSAGE', res.message)
     }
     return res
   },
-
+  async getUserinfo({ commit }) {
+    const { data: res } = await $axios.get('/getAdmin')
+    commit('SET_USER', res.data)
+  },
   loginOut({ commit }) {
     window.sessionStorage.removeItem('token')
     commit('SET_TOKEN', '')

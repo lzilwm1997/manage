@@ -1,10 +1,10 @@
 <template>
   <div class="homePage">
     <el-container>
-      <el-aside width="200px">Aside</el-aside>
+      <el-aside><Aside /></el-aside>
       <el-container>
         <el-header><Header /></el-header>
-        <el-main>Main</el-main>
+        <el-main><router-view></router-view></el-main>
       </el-container>
     </el-container>
   </div>
@@ -12,11 +12,12 @@
 
 <script>
 import Header from '../components/Header'
+import Aside from '../components/Aside'
 export default {
   // mounted: {
 
   // },
-  components: { Header },
+  components: { Header, Aside },
   methods: {
     loginOut() {
       this.$store.dispatch('userLogin/loginOut')
@@ -33,5 +34,11 @@ export default {
 @import '../assets/style/mixin.scss';
 .homePage {
   @include pageBackground(#f0f2f5);
+  .el-container {
+    height: 100%;
+  }
+  .el-header {
+    padding: 0;
+  }
 }
 </style>

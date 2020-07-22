@@ -1,6 +1,13 @@
-@mixin pageBackground($bc){
-    height: 100%;
-    width: 100%;
-    position: fixed;
-    background-color: $bc;
+@mixin pageBackground($bc) {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background-color: $bc;
+}
+
+@mixin disCenter {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

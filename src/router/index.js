@@ -2,8 +2,15 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/login.vue'
 import Home from '../views/home.vue'
+import MainIndex from '../views/mainIndex.vue'
 
 Vue.use(VueRouter)
+
+// 解决router跳转到相同链接报错问题
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 const routes = [
   // {
@@ -23,7 +30,14 @@ const routes = [
   },
   {
     path: '/home',
-    component: Home
+    component: Home,
+    redirect: '/mainIndex',
+    children: [
+      {
+        path: '/mainIndex',
+        component: MainIndex
+      }
+    ]
   }
 ]
 
@@ -32,7 +46,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.path == '/login') return next()//eslint-disable-line
+  if (to.path == '/login') return next() //eslint-disable-line
   const tokenStr = window.sessionStorage.getItem('token')
   if (!tokenStr) return next('/login')
   next()
