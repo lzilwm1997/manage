@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Login from '../views/login.vue'
 import Home from '../views/home.vue'
 import MainIndex from '../views/mainIndex.vue'
+import usersList from '../views/userLIsts.vue'
+import categoryList from '../views/categoryList.vue'
 
 Vue.use(VueRouter)
 
@@ -36,6 +38,16 @@ const routes = [
       {
         path: '/mainIndex',
         component: MainIndex
+      },
+      {
+        path: '/usersList',
+        component: usersList,
+        meta: ['数据管理', '用户列表']
+      },
+      {
+        path: '/categoryList',
+        component: categoryList,
+        meta: ['数据管理', '分类列表']
       }
     ]
   }
